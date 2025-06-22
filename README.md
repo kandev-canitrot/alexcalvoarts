@@ -5,6 +5,7 @@ This project hosts a static website for booking one-off dance and theatre classe
 
 ## 🏗️ Architecture Overview
 
+```
 Browser
 |
 | HTTPS
@@ -17,6 +18,7 @@ CloudFront (CDN) - alexcalvoarts.com / www.alexcalvoarts.com
 | -- API Gateway (HTTPS POST to /createCheckoutSession)
 |
 | -- AWS Lambda (Stripe Checkout session creator)
+```
 
 
 ## 🔧 Components
@@ -59,14 +61,16 @@ CloudFront (CDN) - alexcalvoarts.com / www.alexcalvoarts.com
 
 ## 📁 Project Structure (Local)
 
+```
 project-root/
 ├── stripe-lambda/
-│ ├── index.js # Lambda handler
-│ ├── package.json
-│ ├── package-lock.json
-│ └── node_modules/ # Stripe dependency
-└── s3-site/
-└── index.html # Main static website
+│   ├── index.js # Lambda handler
+│   ├── package.json
+│   ├── package-lock.json
+│   └── node_modules/ # Stripe dependency
+├── s3-site/
+│   └── index.html # Main static website
+```
 
 
 ## ✅ Deployment Summary
