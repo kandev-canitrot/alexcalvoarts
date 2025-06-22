@@ -2,6 +2,36 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event) => {
   try {
+    // Parse the request body if it exists
+    let requestBody = {};
+    if (event.body) {
+      try {
+        requestBody = JSON.parse(event.body);
+      } catch (e) {
+        console.error('Error parsing request body:', e);
+      }
+    }
+    
+    // Default values
+    let amount = 11000; // €110.00 in cents (full term)
+    let productName = 'Belly Dance Class - Full Term';
+    
+    // Check if payment type is specified
+    if (requestBody.paymentType === 'deposit') {
+      amount = 5000; // €50.00 in cents (deposit)
+      productName = 'Belly Dance Class - Deposit';
+    } else if (requestBody.paymentType === 'full') {
+      amount = 11000; // €110.00 in cents (full term)
+      productName = 'Belly Dance Class - Full Term';
+    }
+    
+    // Check if class level is specified
+    if (requestBody.classLevel === 'beginner') {
+      productName = 'Beginner ' + productName;
+    } else if (requestBody.classLevel === 'intermediate') {
+      productName = 'Intermediate ' + productName;
+    }
+    
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
@@ -9,9 +39,9 @@ exports.handler = async (event) => {
         price_data: {
           currency: 'eur',
           product_data: {
-            name: 'Belly Dance or Theater Class',
+            name: productName,
           },
-          unit_amount: 1500, // €15.00 in cents
+          unit_amount: amount,
         },
         quantity: 1,
       }],

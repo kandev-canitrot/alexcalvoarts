@@ -7,3 +7,7 @@ stripe-lambda/function.zip
 # Optional: Mac system file
 .DS_Store
 
+# Ignore images folder
+images/
+
+
