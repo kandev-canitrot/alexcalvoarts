@@ -1,0 +1,12 @@
+{
+  "name": "webhook-lambda",
+  "version": "1.0.0",
+  "description": "Lambda function to handle Stripe webhook events",
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.1048.0",
+    "stripe": "^8.194.0"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Form - Alexandra Belly Dance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-bg: #3A2A5E;
+      --primary-text: #F9D84A;
+      --accent: #5ECFB1;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--primary-bg);
+      color: white;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      text-align: center;
+      padding: 20px 0 40px;
+    }
+    
+    .header-image {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+    
+    .logo {
+      max-width: 150px;
+      margin-bottom: 20px;
+    }
+    
+    .site-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 4rem;
+      color: var(--primary-text);
+      margin-bottom: 10px;
+    }
+    
+    .site-subtitle {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+    
+    /* Form specific styles */
+    .form-container {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      padding: 30px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .form-title {
+      color: var(--primary-text);
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      text-align: center;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: var(--accent);
+    }
+    
+    input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-family: 'Montserrat', sans-serif;
+    }
+    
+    .submit-button {
+      background-color: var(--primary-text);
+      color: var(--primary-bg);
+      padding: 15px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      margin-top: 10px;
+    }
+    
+    .submit-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+      filter: brightness(110%);
+    }
+    
+    footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    /* Spinner Animation */
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-left: 10px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+      vertical-align: middle;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .button-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="images/pic-01-cropped-a.png" alt="Alexandra Belly Dance Header" class="header-image">
+      <h1 class="site-title">Alexandra</h1>
+      <h2 class="site-subtitle">Belly Dance</h2>
+    </header>
+    
+    <div class="form-container">
+      <h2 class="form-title">Complete Your Booking</h2>
+      <form id="booking-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="surname">Surname</label>
+          <input type="text" id="surname" name="surname" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber">Phone Number</label>
+          <input type="tel" id="phoneNumber" name="phoneNumber" required>
+        </div>
+        
+        <input type="hidden" id="classLevel" name="classLevel">
+        <input type="hidden" id="paymentType" name="paymentType">
+        
+        <button type="submit" class="submit-button">
+          <div class="button-content">Proceed to Payment</div>
+        </button>
+      </form>
+    </div>
+    
+    <footer>
+      <p>&copy; 2025 Alexandra Belly Dance. All rights reserved.</p>
+    </footer>
+  </div>
+  
+  <script src="js/booking.js"></script>
+</body>
+</html>

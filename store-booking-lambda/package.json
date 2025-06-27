@@ -1,0 +1,12 @@
+{
+  "name": "store-booking-lambda",
+  "version": "1.0.0",
+  "description": "Lambda function to store booking information in DynamoDB",
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.1048.0",
+    "uuid": "^8.3.2"
+  },
+  "author": "",
+  "license": "ISC"
+}
