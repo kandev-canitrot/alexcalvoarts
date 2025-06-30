@@ -13,7 +13,7 @@ exports.handler = async (event) => {
     'Access-Control-Allow-Methods': 'OPTIONS,POST',
     'Access-Control-Max-Age': '86400'
   };
-  
+
   // Handle preflight OPTIONS request
   if (event.requestContext?.http?.method === 'OPTIONS') {
     console.log('Handling OPTIONS request');
@@ -23,20 +23,24 @@ exports.handler = async (event) => {
       body: JSON.stringify({ message: 'CORS preflight successful' })
     };
   }
-  
+
   try {
     console.log('Received webhook event:', JSON.stringify(event, null, 2));
-    
-    // Parse the webhook payload
-    const payload = JSON.parse(event.body);
+
     const sig = event.headers['stripe-signature'];
-    
-    // Verify the webhook signature
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+    // Get the raw body as a Buffer
+    let rawBody;
+    if (event.isBase64Encoded) {
+      rawBody = Buffer.from(event.body, 'base64');
+    } else {
+      rawBody = Buffer.from(event.body, 'utf8');
+    }
+
     let stripeEvent;
-    
     try {
-      stripeEvent = stripe.webhooks.constructEvent(event.body, sig, endpointSecret);
+      stripeEvent = stripe.webhooks.constructEvent(rawBody, sig, endpointSecret);
     } catch (err) {
       console.error('Webhook signature verification failed:', err.message);
       return {
@@ -45,16 +49,17 @@ exports.handler = async (event) => {
         body: JSON.stringify({ error: 'Webhook signature verification failed' })
       };
     }
-    
+
+    console.log('Verified Stripe event type:', stripeEvent.type);
+
     // Handle the checkout.session.completed event
     if (stripeEvent.type === 'checkout.session.completed') {
       const session = stripeEvent.data.object;
-      
+
       // Get the booking ID from the session metadata
       const bookingId = session.metadata.bookingId;
-      
+
       if (bookingId) {
-        // Update the booking status in DynamoDB
         await dynamoDB.update({
           TableName: TABLE_NAME,
           Key: { bookingId },
@@ -63,22 +68,22 @@ exports.handler = async (event) => {
             ':status': 'completed'
           }
         }).promise();
-        
+
         console.log(`Updated booking ${bookingId} status to completed`);
       } else {
         console.warn('No bookingId found in session metadata');
       }
     }
-    
+
     return {
       statusCode: 200,
       headers,
       body: JSON.stringify({ received: true })
     };
-    
+
   } catch (error) {
     console.error('Error processing webhook:', error);
-    
+
     return {
       statusCode: 500,
       headers,
