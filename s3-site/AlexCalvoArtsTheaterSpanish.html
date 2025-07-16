@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bravas Teatro - Alexandra Calvo Arts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-bg: #A3B18A;
+      --primary-text: #000;
+      --accent: #F4A261;
+      --inner-bg: #FDBA5C;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--primary-bg);
+      color: var(--primary-text);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      text-align: center;
+      padding: 20px 0 40px;
+    }
+    
+    .header-image {
+      width: 80%;
+      max-height: 300px;
+      object-fit: contain;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+    
+    .site-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 4rem;
+      color: var(--primary-text);
+      margin-bottom: 10px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .site-title::after {
+      content: ".";
+      font-weight: 800;
+      margin-left: 0.1em;
+    }
+    
+    .site-subtitle {
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      color: var(--primary-text);
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+    }
+    
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0;
+    }
+    
+    .class-section {
+      background-color: var(--inner-bg);
+      border-radius: 10px;
+      padding: 30px;
+      width: 100%;
+      max-width: 800px;
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .class-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .class-section h2 {
+      color: var(--primary-text);
+      margin-bottom: 10px;
+      font-size: 1.8rem;
+      font-weight: 800;
+      text-align: center;
+    }
+    
+    .class-section h3 {
+      color: var(--primary-text);
+      margin-bottom: 20px;
+      font-size: 1.4rem;
+      font-weight: 300;
+      text-align: center;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 10px;
+    }
+    
+    .class-details {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+    
+    .class-detail-item {
+      margin-bottom: 8px;
+    }
+    
+    .class-note {
+      margin: 20px 0;
+      font-style: italic;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+    
+    .buttons-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: auto;
+    }
+    
+    .checkout-button {
+      padding: 15px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .full-term-button {
+      background-color: #588157;
+      color: white;
+    }
+    
+    .deposit-button {
+      background-color: #E76F51;
+      color: white;
+    }
+    
+    .checkout-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+      filter: brightness(110%);
+    }
+    
+    .checkout-button:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .footer-section {
+      background-color: var(--accent);
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .footer-section img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 10px;
+      margin: 0 auto 20px;
+      display: block;
+    }
+
+    .footer-section .contact-info {
+      font-size: 1.1rem;
+      margin: 10px 0;
+    }
+
+    .footer-section a {
+      color: var(--primary-text);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .footer-section a:hover {
+      text-decoration: underline;
+    }
+
+    .map-embed {
+      margin: 20px auto;
+      max-width: 100%;
+      border: 0;
+      width: 100%;
+      height: 300px;
+      border-radius: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: var(--primary-text);
+      background-color: var(--accent);
+    }
+
+    .social-section {
+      margin-top: 30px;
+      text-align: center;
+    }
+    
+    .social-section p {
+      font-size: 1.2rem;
+      color: var(--primary-text);
+    }
+    
+    .social-handle {
+      color: var(--primary-text);
+      font-weight: 800;
+    }
+    
+    .term-dates {
+      text-align: center;
+      margin: 30px auto 40px;
+      padding: 25px;
+      background-color: var(--inner-bg);
+      border-radius: 10px;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .term-dates h3 {
+      color: var(--primary-text);
+      margin-bottom: 10px;
+      font-size: 1.8rem;
+      font-weight: 800;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .term-intro {
+      color: var(--primary-text);
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+
+    .dates-container {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+    }
+
+    .month {
+      text-align: left;
+    }
+
+    .month h4 {
+      color: var(--primary-text);
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+      font-weight: 800;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 5px;
+      display: inline-block;
+    }
+
+    .date-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .date-list li {
+      margin-bottom: 8px;
+      color: var(--primary-text);
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .date-list li:before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--primary-text);
+    }
+    
+    .about-section {
+      background-color: var(--inner-bg);
+      border-radius: 10px;
+      padding: 30px;
+      margin: 30px auto;
+      max-width: 800px;
+    }
+    
+    .about-section h3 {
+      color: var(--primary-text);
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      font-weight: 800;
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+    }
+    
+    .about-section p {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+    
+    .about-section h4 {
+      color: var(--primary-text);
+      margin: 25px 0 15px;
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+    
+    .reviews-section {
+      background-color: var(--inner-bg);
+      border-radius: 10px;
+      padding: 30px;
+      margin: 30px auto;
+      max-width: 800px;
+      text-align: center;
+    }
+    
+    .reviews-section h3 {
+      color: var(--primary-text);
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      font-weight: 800;
+      font-family: 'Montserrat', sans-serif;
+    }
+    
+    .review-link {
+      text-decoration: none;
+      display: inline-block;
+      margin: 20px 0;
+    }
+    
+    .review-button {
+      background-color: #588157;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .review-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+      filter: brightness(110%);
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 900px) {
+      .classes-container {
+        flex-direction: column;
+      }
+      
+      .class-section {
+        margin-bottom: 30px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .site-title {
+        font-size: 3rem;
+      }
+      
+      .site-subtitle {
+        font-size: 1.5rem;
+      }
+      
+      .class-section {
+        padding: 20px;
+      }
+      
+      .checkout-button {
+        padding: 12px;
+        font-size: 1.1rem;
+      }
+      
+      .dates-container {
+        flex-direction: column;
+        gap: 30px;
+      }
+      
+      .month {
+        margin: 0 auto;
+      }
+    }
+    
+    /* Spinner Animation */
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-left: 10px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+      vertical-align: middle;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .button-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+  
+  <!-- Slideshow CSS -->
+  <style>
+    .slideshow-container {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 400px;
+      margin-top: 30px;
+      border-top: 1px solid var(--accent);
+      padding-top: 30px;
+    }
+    
+    .slideshow-slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      display: none;
+      text-align: center;
+    }
+    
+    .slideshow-slide.active {
+      opacity: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .slideshow-image {
+      max-width: 100%;
+      max-height: 400px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="./images/theater-spanish-logo.jpg" alt="Bravas Teatro Header" class="header-image">
+      <h2 class="site-subtitle">Teatro en Español</h2>
+    </header>
+    
+    <div class="term-dates">
+      <h3>Upcoming Term Dates</h3>
+      <p class="term-intro">Join us for our 8-week autumn term on these Wednesdays:</p>
+      <div class="dates-container">
+        <div class="month">
+          <h4>September</h4>
+          <ul class="date-list">
+            <li>Wednesday, September 10th</li>
+            <li>Wednesday, September 17th</li>
+            <li>Wednesday, September 24th</li>
+          </ul>
+        </div>
+        <div class="month">
+          <h4>October</h4>
+          <ul class="date-list">
+            <li>Wednesday, October 1st</li>
+            <li>Wednesday, October 8th</li>
+            <li>Wednesday, October 15th</li>
+            <li>Wednesday, October 22nd</li>
+            <li>Wednesday, October 29th</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="about-section">
+      <h3>About Our Classes</h3>
+      <p>Spanish theater classes for adults based on play, listening, and collective creation. Inspired by Jacques Lecoq's pedagogy, we start from the body and movement to discover characters, emotions, and scenes. Here, mistakes don't exist: everything is possibility.</p>
+      
+      <h4>Who Is It For?</h4>
+      <p>For those looking to express themselves, let go, laugh, and connect. You don't need previous experience, just a desire to play, try, and share.</p>
+      
+      <h4>Our Space</h4>
+      <p>A safe, respectful, and judgment-free environment where you can be yourself, be others... or simply be.</p>
+      
+      <!-- Slideshow integrated into About section -->
+      <div class="slideshow-container">
+        <!-- Slides will be dynamically generated here -->
+      </div>
+    </div>
+    
+    <div class="reviews-section">
+      <h3>What People Say About Our Classes</h3>
+      <p>Check out what our students are saying about us on Google Reviews:</p>
+      <a href="https://www.google.com/maps/place/Bravas+teatro+(spanish+theatre)/@53.335987,-6.2252339,544m/data=!3m1!1e3!4m8!3m7!1s0x48670f154ade4689:0x25a0edf746e9392e!8m2!3d53.335987!4d-6.2226601!9m1!1b1!16s%2Fg%2F11wjdnq_75?entry=ttu&g_ep=EgoyMDI1MDcwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="review-link">
+        <div class="review-button">
+          View Google Reviews
+        </div>
+      </a>
+    </div>
+    
+    <div class="main-content">
+      <div class="class-section">
+        <img src="./images/theater-spanish-01.jpg" alt="Theater in Spanish Class" class="class-image">
+        <h2>Theater in Spanish Classes</h2>
+        <h3>Wednesdays, 7:00 - 8:30 PM</h3>
+        <div class="class-details">
+          <div class="class-detail-item">Sandymount Community Centre, Dublin</div>
+          <div class="class-detail-item">8-week term - €120</div>
+          <div class="class-detail-item">Very limited spots, book in advance.</div>
+        </div>
+        <p>Secure your spot in advance with a €20 deposit.<br>
+        The deposit will be deducted from the total fee.<br>
+        If for any reason the course doesn't go ahead, you'll receive a full refund.</p>
+        <p class="class-note">Starting September 10th!</p>
+        <div class="buttons-container">
+          <button class="checkout-button full-term-button" data-class-level="theater" data-payment-type="full">
+            <div class="button-content">Book full 8-week term (€120)</div>
+          </button>
+          <button class="checkout-button deposit-button" data-class-level="theater" data-payment-type="deposit">
+            <div class="button-content">Book spot with deposit (€20)</div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-section">
+      <div class="contact-info">Follow us on Instagram: <a href="https://instagram.com/bravas_teatro" target="_blank">@bravas_teatro</a></div>
+      <div class="contact-info">Email: <a href="mailto:actricesa@gmail.com">actricesa@gmail.com</a></div>
+      <div class="contact-info">Phone: <a href="tel:+353896177840">(+353) 896177840</a></div>
+      <div class="contact-info">Location: <a href="https://maps.app.goo.gl/5MsLB4dAaSBBqGUe8" target="_blank">Sandymount Community Centre</a></div>
+      <iframe class="map-embed" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2369.9976299846694!2d-6.225235023283552!3d53.33598697228633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48670f154ade4689%3A0x25a0edf746e9392e!2sBravas%20teatro%20(spanish%20theatre)!5e1!3m2!1sen!2sie!4v1752588376981!5m2!1sen!2sie" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>    
+    
+    <footer>
+      <p>&copy; 2025 Alexandra Calvo Arts. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Dynamic Slideshow functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const slideshowContainer = document.querySelector('.slideshow-container');
+      const baseImagePath = './images/theater-spanish-';
+      const imageExtension = '.jpg';
+      const maxImagesToCheck = 99; // Maximum number to check (01-99)
+      const loadedImages = [];
+      
+      // Function to pad numbers with leading zeros
+      function padNumber(num) {
+        return num.toString().padStart(2, '0');
+      }
+      
+      // Function to check if an image exists and add it to the slideshow
+      function checkAndAddImage(imageNumber) {
+        return new Promise((resolve) => {
+          const img = new Image();
+          const paddedNumber = padNumber(imageNumber);
+          img.src = baseImagePath + paddedNumber + imageExtension;
+          
+          img.onload = function() {
+            // Image exists, add it to our array with its number for sorting
+            loadedImages.push({
+              number: imageNumber,
+              src: img.src,
+              alt: `Theater Spanish Class ${imageNumber}`
+            });
+            resolve();
+          };
+          
+          img.onerror = function() {
+            // Image doesn't exist, just resolve the promise
+            resolve();
+          };
+        });
+      }
+      
+      // Check all possible images (01-99)
+      const imagePromises = [];
+      for (let i = 1; i <= maxImagesToCheck; i++) {
+        imagePromises.push(checkAndAddImage(i));
+      }
+      
+      // Once all images are checked, create and start the slideshow
+      Promise.all(imagePromises).then(() => {
+        // Sort images by their number
+        loadedImages.sort((a, b) => a.number - b.number);
+        
+        // Create slides for each loaded image
+        loadedImages.forEach(imageData => {
+          const slide = document.createElement('div');
+          slide.className = 'slideshow-slide';
+          
+          const image = document.createElement('img');
+          image.src = imageData.src;
+          image.alt = imageData.alt;
+          image.className = 'slideshow-image';
+          
+          slide.appendChild(image);
+          slideshowContainer.appendChild(slide);
+        });
+        
+        // Start the slideshow if we have images
+        if (loadedImages.length > 0) {
+          const slides = document.querySelectorAll('.slideshow-slide');
+          let currentSlide = 0;
+          
+          // Show the first slide initially
+          slides[0].classList.add('active');
+          
+          // Function to move to the next slide
+          function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+          }
+          
+          // Change slide every 5 seconds
+          setInterval(nextSlide, 5000);
+        }
+      });
+    });
+    
+    // Booking button logic
+    document.querySelectorAll('.checkout-button').forEach(button => {
+      button.addEventListener('click', () => {
+        // Get class level and payment type from data attributes
+        const classLevel = button.getAttribute('data-class-level');
+        const paymentType = button.getAttribute('data-payment-type');
+        
+        // Show loading state with spinner
+        const originalButtonText = button.textContent;
+        
+        // Clear button and add a wrapper for content
+        button.innerHTML = '<div class="button-content">Processing...<span class="spinner"></span></div>';
+        button.disabled = true;
+        
+        // Store booking details in sessionStorage
+        sessionStorage.setItem('classLevel', classLevel);
+        sessionStorage.setItem('paymentType', paymentType);
+        
+        // Short delay to show the animation before redirecting
+        setTimeout(() => {
+          // Redirect to theater-specific booking form
+          window.location.href = 'theater-booking-form.html';
+        }, 500); // 500ms delay to show the spinner
+      });
+    });
+  </script>
+</body>
+</html>

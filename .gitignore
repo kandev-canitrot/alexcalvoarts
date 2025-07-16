@@ -1,19 +1,19 @@
 # Ignore node_modules folders
-stripe-lambda/node_modules/
-store-booking-lambda/node_modules/
-webhook-lambda/node_modules/
-notify-booking-lambda/node_modules/
+lambda-stripe/node_modules/
+lambda-store-booking/node_modules/
+lambda-webhook/node_modules/
+lambda-notify-booking/node_modules/
 
 # Ignore Lambda deployment packages
-notify-booking-lambda.zip
-store-booking-lambda.zip
-stripe-lambda.zip
-webhook-lambda.zip
+lambda-notify-booking.zip
+lambda-store-booking.zip
+lambda-stripe.zip
+lambda-webhook.zip
 
 # Optional: Mac system file
 .DS_Store
 
 # Ignore images folder
-images/
+s3-site/images/
 
 

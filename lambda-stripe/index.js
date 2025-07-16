@@ -67,13 +67,23 @@ exports.handler = async (event) => {
     
     const booking = getResult.Item;
     
-    // Default values
-    let amount = 11000; // €110.00 in cents (full term)
+    // Default values for Belly Dance classes
+    let amount = 11000; // €110.00 in cents (full term for Belly Dance)
     let productName = booking.courseBooking;
     
-    // Check if payment type is specified
-    if (booking.paymentType === 'deposit') {
-      amount = 5000; // €50.00 in cents (deposit)
+    // Check class level and payment type to determine amount
+    if (booking.classLevel === 'theater') {
+      // Theater in Spanish class pricing
+      if (booking.paymentType === 'full') {
+        amount = 12000; // €120.00 in cents (full term)
+      } else if (booking.paymentType === 'deposit') {
+        amount = 2000; // €20.00 in cents (deposit)
+      }
+    } else {
+      // Belly Dance class pricing
+      if (booking.paymentType === 'deposit') {
+        amount = 5000; // €50.00 in cents (deposit)
+      }
     }
     
     // Create Stripe checkout session
@@ -91,8 +101,12 @@ exports.handler = async (event) => {
         },
         quantity: 1,
       }],
-      success_url: `https://alexcalvoarts.com/thank-you.html?session_id={CHECKOUT_SESSION_ID}&booking_id=${bookingId}`,
-      cancel_url: 'https://alexcalvoarts.com/index.html',
+      success_url: booking.classLevel === 'theater'
+        ? `https://alexcalvoarts.com/theater-spanish-thank-you.html?session_id={CHECKOUT_SESSION_ID}&booking_id=${bookingId}`
+        : `https://alexcalvoarts.com/belly-dance-thank-you.html?session_id={CHECKOUT_SESSION_ID}&booking_id=${bookingId}`,
+      cancel_url: booking.classLevel === 'theater'
+        ? 'https://alexcalvoarts.com/AlexCalvoArtsTheaterSpanish.html'
+        : 'https://alexcalvoarts.com/AlexCalvoArtsBellyDance.html',
       customer_email: booking.email,
       metadata: {
         bookingId

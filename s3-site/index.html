@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alexandra Belly Dance</title>
+  <title>Alexandra Calvo Arts</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -25,215 +25,82 @@
       background-color: var(--primary-bg);
       color: white;
       line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     
     .container {
-      max-width: 1200px;
+      max-width: 800px;
       margin: 0 auto;
-      padding: 20px;
-    }
-    
-    header {
+      padding: 40px;
       text-align: center;
-      padding: 20px 0 40px;
-    }
-    
-    .header-image {
-      width: 100%;
-      max-height: 400px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 30px;
     }
     
     .site-title {
       font-family: 'Dancing Script', cursive;
       font-size: 4rem;
       color: var(--primary-text);
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
     
     .site-subtitle {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      color: var(--accent);
-      text-transform: uppercase;
-    }
-    
-    .main-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px 0;
-    }
-    
-    .classes-container {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      gap: 30px;
-      margin-bottom: 40px;
-    }
-    
-    .class-section {
-      background-color: rgba(0, 0, 0, 0.2);
-      border-radius: 10px;
-      padding: 30px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .class-image {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
-    
-    .class-section h2 {
-      color: var(--primary-text);
-      margin-bottom: 10px;
       font-size: 1.8rem;
-      text-align: center;
-    }
-    
-    .class-section h3 {
+      font-weight: 700;
+      letter-spacing: 2px;
       color: var(--accent);
-      margin-bottom: 20px;
-      font-size: 1.4rem;
-      text-align: center;
-      border-bottom: 1px solid var(--accent);
-      padding-bottom: 10px;
+      margin-bottom: 60px;
     }
     
-    .class-details {
-      margin-bottom: 20px;
-      font-size: 1.1rem;
-    }
-    
-    .class-detail-item {
-      margin-bottom: 8px;
-    }
-    
-    .class-note {
-      margin: 20px 0;
-      font-style: italic;
-      font-size: 1rem;
-      opacity: 0.9;
-    }
-    
-    .buttons-container {
+    .links-container {
       display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: auto;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 40px;
     }
     
-    .checkout-button {
-      padding: 15px;
-      font-size: 1.2rem;
+    .art-link {
+      display: block;
+      padding: 20px 40px;
+      font-size: 1.5rem;
       font-weight: bold;
-      cursor: pointer;
-      border: none;
-      border-radius: 8px;
+      text-decoration: none;
+      border-radius: 10px;
       transition: all 0.3s ease;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
     
-    .full-term-button {
+    .belly-dance-link {
       background-color: var(--primary-text);
       color: var(--primary-bg);
     }
     
-    .deposit-button {
+    .theater-link {
       background-color: var(--accent);
       color: var(--primary-bg);
     }
     
-    .checkout-button:hover {
-      transform: translateY(-2px);
+    .art-link:hover {
+      transform: translateY(-3px);
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
       filter: brightness(110%);
     }
     
-    .checkout-button:active {
+    .art-link:active {
       transform: translateY(0);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
-    .footer-section {
-      background-color: #2b1e4b;
-      padding: 40px 20px;
-      text-align: center;
-    }
-
-    .footer-section img {
-      width: 100%;
-      max-width: 600px;
-      border-radius: 10px;
-      margin: 0 auto 20px;
-      display: block;
-    }
-
-    .footer-section .contact-info {
-      font-size: 1.1rem;
-      margin: 10px 0;
-    }
-
-    .footer-section a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    .footer-section a:hover {
-      text-decoration: underline;
-    }
-
-    .map-embed {
-      margin: 20px auto;
-      max-width: 100%;
-      border: 0;
-      width: 100%;
-      height: 300px;
-      border-radius: 10px;
-    }
-
+    
     footer {
+      margin-top: 80px;
       text-align: center;
-      padding: 20px;
       font-size: 0.9rem;
       color: rgba(255, 255, 255, 0.7);
-      background-color: #2b1e4b;
-    }
-
-    .social-section {
-      margin-top: 30px;
-      text-align: center;
-    }
-    
-    .social-section p {
-      font-size: 1.2rem;
-      color: var(--accent);
-    }
-    
-    .social-handle {
-      color: var(--primary-text);
-      font-weight: bold;
     }
     
     /* Responsive styles */
-    @media (max-width: 900px) {
-      .classes-container {
-        flex-direction: column;
-      }
-      
-      .class-section {
-        margin-bottom: 30px;
-      }
-    }
-    
     @media (max-width: 768px) {
       .site-title {
         font-size: 3rem;
@@ -241,237 +108,34 @@
       
       .site-subtitle {
         font-size: 1.5rem;
+        margin-bottom: 40px;
       }
       
-      .class-section {
-        padding: 20px;
-      }
-      
-      .checkout-button {
-        padding: 12px;
-        font-size: 1.1rem;
-      }
-    }
-    
-    /* Spinner Animation */
-    .spinner {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      margin-left: 10px;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      border-top-color: #fff;
-      animation: spin 1s ease-in-out infinite;
-      vertical-align: middle;
-    }
-    
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    
-    .button-content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .term-dates {
-      text-align: center;
-      margin: 30px auto 40px;
-      padding: 25px;
-      background-color: rgba(0, 0, 0, 0.2);
-      border-radius: 10px;
-      max-width: 700px;
-      width: 100%;
-    }
-
-    .term-dates h3 {
-      color: var(--primary-text);
-      margin-bottom: 10px;
-      font-size: 1.8rem;
-      font-family: 'Dancing Script', cursive;
-    }
-
-    .term-intro {
-      color: var(--accent);
-      margin-bottom: 20px;
-      font-size: 1.1rem;
-    }
-
-    .dates-container {
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-    }
-
-    .month {
-      text-align: left;
-    }
-
-    .month h4 {
-      color: var(--primary-text);
-      margin-bottom: 10px;
-      font-size: 1.3rem;
-      border-bottom: 1px solid var(--accent);
-      padding-bottom: 5px;
-      display: inline-block;
-    }
-
-    .date-list {
-      list-style: none;
-      padding: 0;
-    }
-
-    .date-list li {
-      margin-bottom: 8px;
-      color: white;
-      position: relative;
-      padding-left: 20px;
-    }
-
-    .date-list li:before {
-      content: "✦";
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-    }
-
-    @media (max-width: 700px) {
-      .dates-container {
+      .links-container {
         flex-direction: column;
-        gap: 30px;
+        gap: 20px;
       }
       
-      .month {
-        margin: 0 auto;
+      .art-link {
+        padding: 15px 30px;
+        font-size: 1.3rem;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <header>
-      <img src="images/pic-01-cropped-a.png" alt="Alexandra Belly Dance Header" class="header-image">
-      <h1 class="site-title">Alexandra</h1>
-      <h2 class="site-subtitle">Belly Dance</h2>
-    </header>
+    <h1 class="site-title">Alexandra Calvo</h1>
+    <h2 class="site-subtitle">Arts</h2>
     
-    <div class="term-dates">
-      <h3>Upcoming Term Dates</h3>
-      <p class="term-intro">Join us for our 8-week autumn term on these Thursdays:</p>
-      <div class="dates-container">
-        <div class="month">
-          <h4>September</h4>
-          <ul class="date-list">
-            <li>Thursday, September 4th</li>
-            <li>Thursday, September 11th</li>
-            <li>Thursday, September 18th</li>
-            <li>Thursday, September 25th</li>
-          </ul>
-        </div>
-        <div class="month">
-          <h4>October</h4>
-          <ul class="date-list">
-            <li>Thursday, October 2nd</li>
-            <li>Thursday, October 9th</li>
-            <li>Thursday, October 16th</li>
-            <li>Thursday, October 23rd</li>
-          </ul>
-        </div>
-      </div>
+    <div class="links-container">
+      <a href="AlexCalvoArtsBellyDance.html" class="art-link belly-dance-link">Belly Dance</a>
+      <a href="AlexCalvoArtsTheaterSpanish.html" class="art-link theater-link">Theater in Spanish</a>
     </div>
-    
-    <div class="main-content">
-      <div class="classes-container">
-        <!-- Beginner Class Section -->
-        <div class="class-section">
-          <img src="images/pic-05.jpg" alt="Beginner Belly Dance Class" class="class-image">
-          <h2>Beginner Bellydance Classes</h2>
-          <h3>Thursdays, 7:00 – 8:00 PM</h3>
-          <div class="class-details">
-            <div class="class-detail-item">Ringsend Community Centre, Dublin</div>
-            <div class="class-detail-item">8-week term – €110</div>
-          </div>
-          <p>Secure your spot in advance with a €50 deposit.<br>
-          The deposit will be deducted from the total fee.<br>
-          If for any reason the course doesn't go ahead, you'll receive a full refund.</p>
-          <p class="class-note">No experience needed – all bodies and ages welcome!</p>
-          <div class="buttons-container">
-            <button class="checkout-button full-term-button" data-class-level="beginner" data-payment-type="full">
-              <div class="button-content">Book full 8-week term (€110)</div>
-            </button>
-            <button class="checkout-button deposit-button" data-class-level="beginner" data-payment-type="deposit">
-              <div class="button-content">Book spot with deposit (€50)</div>
-            </button>
-          </div>
-        </div>
-        
-        <!-- Intermediate Class Section -->
-        <div class="class-section">
-          <img src="images/pic-03.jpg" alt="Intermediate Belly Dance Class" class="class-image">
-          <h2>Intermediate Bellydance Classes</h2>
-          <h3>Thursdays, 8:00 – 9:00 PM</h3>
-          <div class="class-details">
-            <div class="class-detail-item">Ringsend Community Centre, Dublin</div>
-            <div class="class-detail-item">8-week term – €110</div>
-          </div>
-          <p>Secure your spot in advance with a €50 deposit.<br>
-          The deposit will be deducted from the total fee.<br>
-          If for any reason the course doesn't go ahead, you'll receive a full refund.</p>
-          <p class="class-note">Some previous bellydance experience is recommended.</p>
-          <div class="buttons-container">
-            <button class="checkout-button full-term-button" data-class-level="intermediate" data-payment-type="full">
-              <div class="button-content">Book full 8-week term (€110)</div>
-            </button>
-            <button class="checkout-button deposit-button" data-class-level="intermediate" data-payment-type="deposit">
-              <div class="button-content">Book spot with deposit (€50)</div>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-section">
-      <img src="images/pic-02.jpg" alt="Alexandra Belly Dance Live" />
-      <div class="contact-info">Follow us on Instagram: <a href="https://instagram.com/alex_bellydance2022" target="_blank">@alex_bellydance2022</a></div>
-      <div class="contact-info">Email: <a href="mailto:actricesa@gmail.com">actricesa@gmail.com</a></div>
-      <div class="contact-info">Phone: <a href="tel:+353896177840">(+353) 896177840</a></div>
-      <div class="contact-info">Location: <a href="https://maps.app.goo.gl/5MsLB4dAaSBBqGUe8" target="_blank">Ringsend & Irishtown Community Centre</a></div>
-      <iframe class="map-embed" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2369.547078359757!2d-6.230941523283024!3d53.34409477228867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48670f76708d636d%3A0xe00b195f98f28d2a!2sRingsend%20%26%20Irishtown%20Community%20Centre!5e1!3m2!1sen!2sie!4v1751019645610!5m2!1sen!2sie" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>    
     
     <footer>
-      <p>&copy; 2025 Alexandra Belly Dance. All rights reserved.</p>
+      <p>&copy; 2025 Alexandra Calvo Arts. All rights reserved.</p>
     </footer>
   </div>
-
-  <script>
-    // Booking button logic
-    document.querySelectorAll('.checkout-button').forEach(button => {
-      button.addEventListener('click', () => {
-        // Get class level and payment type from data attributes
-        const classLevel = button.getAttribute('data-class-level');
-        const paymentType = button.getAttribute('data-payment-type');
-        
-        // Show loading state with spinner
-        const originalButtonText = button.textContent;
-        
-        // Clear button and add a wrapper for content
-        button.innerHTML = '<div class="button-content">Processing...<span class="spinner"></span></div>';
-        button.disabled = true;
-        
-        // Store booking details in sessionStorage
-        sessionStorage.setItem('classLevel', classLevel);
-        sessionStorage.setItem('paymentType', paymentType);
-        
-        // Short delay to show the animation before redirecting
-        setTimeout(() => {
-          // Redirect to booking form
-          window.location.href = 'booking-form.html';
-        }, 500); // 500ms delay to show the spinner
-      });
-    });
-  </script>
 </body>
 </html>

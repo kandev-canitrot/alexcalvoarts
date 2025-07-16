@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You - Alexandra Belly Dance</title>
+  <title>Thank You - Bravas Teatro</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary-bg: #3A2A5E;
-      --primary-text: #F9D84A;
-      --accent: #5ECFB1;
+      --primary-bg: #A3B18A;
+      --primary-text: #000;
+      --accent: #F4A261;
+      --inner-bg: #FDBA5C;
     }
     
     * {
@@ -23,7 +24,7 @@
     body {
       font-family: 'Montserrat', sans-serif;
       background-color: var(--primary-bg);
-      color: white;
+      color: var(--primary-text);
       line-height: 1.6;
     }
     
@@ -39,36 +40,44 @@
     }
     
     .header-image {
-      width: 100%;
-      max-height: 400px;
-      object-fit: cover;
+      width: 80%;
+      max-height: 300px;
+      object-fit: contain;
       border-radius: 10px;
       margin-bottom: 30px;
-    }
-    
-    .logo {
-      max-width: 150px;
-      margin-bottom: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
     }
     
     .site-title {
-      font-family: 'Dancing Script', cursive;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
       font-size: 4rem;
       color: var(--primary-text);
       margin-bottom: 10px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .site-title::after {
+      content: ".";
+      font-weight: 800;
+      margin-left: 0.1em;
     }
     
     .site-subtitle {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      color: var(--accent);
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      color: var(--primary-text);
       text-transform: uppercase;
+      margin-top: 0.5rem;
     }
     
     /* Thank you page specific styles */
     .thank-you-container {
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: var(--inner-bg);
       border-radius: 10px;
       padding: 40px;
       max-width: 600px;
@@ -80,17 +89,19 @@
       color: var(--primary-text);
       margin-bottom: 20px;
       font-size: 2.5rem;
+      font-weight: 800;
     }
     
     .thank-you-message {
       font-size: 1.2rem;
       margin-bottom: 30px;
+      color: var(--primary-text);
     }
     
     .return-button {
       display: inline-block;
-      background-color: var(--accent);
-      color: var(--primary-bg);
+      background-color: #588157;
+      color: white;
       padding: 15px 30px;
       font-size: 1.2rem;
       font-weight: bold;
@@ -111,26 +122,26 @@
       padding: 20px;
       margin-top: 40px;
       font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--primary-text);
     }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <img src="images/pic-01-cropped-a.png" alt="Alexandra Belly Dance Header" class="header-image">
-      <h1 class="site-title">Alexandra</h1>
-      <h2 class="site-subtitle">Belly Dance</h2>
+      <img src="images/theater-spanish-01.jpg" alt="Bravas Teatro Header" class="header-image">
+      <h1 class="site-title">Bravas Teatro</h1>
+      <h2 class="site-subtitle">Theater in Spanish</h2>
     </header>
     
     <div class="thank-you-container">
       <h2 class="thank-you-title">Thank You!</h2>
-      <p class="thank-you-message">Your payment has been successfully processed.<br>We look forward to dancing with you soon!</p>
-      <a href="index.html" class="return-button">Return to Homepage</a>
+      <p class="thank-you-message">Your payment has been successfully processed.<br>We look forward to be creative and have fun with you soon!</p>
+      <a href="AlexCalvoArtsTheaterSpanish.html" class="return-button">Return to Homepage</a>
     </div>
     
     <footer>
-      <p>&copy; 2025 Alexandra Belly Dance. All rights reserved.</p>
+      <p>&copy; 2025 Bravas Teatro. All rights reserved.</p>
     </footer>
   </div>
 </body>

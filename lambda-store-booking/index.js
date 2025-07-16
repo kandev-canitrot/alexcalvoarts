@@ -51,20 +51,28 @@ exports.handler = async (event) => {
     }
     
     // Determine product name based on class level and payment type
-    let productName = 'Belly Dance Class';
+    let productName = '';
     let isFullTerm = paymentType === 'full';
     let isPreBooking = paymentType === 'deposit';
     
+    // Set base product name based on class level
+    if (classLevel === 'beginner' || classLevel === 'intermediate') {
+      productName = 'Belly Dance Class';
+      
+      if (classLevel === 'beginner') {
+        productName = 'Beginner ' + productName;
+      } else if (classLevel === 'intermediate') {
+        productName = 'Intermediate ' + productName;
+      }
+    } else if (classLevel === 'theater') {
+      productName = 'Theater in Spanish Class';
+    }
+    
+    // Add payment type to product name
     if (paymentType === 'deposit') {
       productName += ' - Deposit';
     } else if (paymentType === 'full') {
       productName += ' - Full Term';
-    }
-    
-    if (classLevel === 'beginner') {
-      productName = 'Beginner ' + productName;
-    } else if (classLevel === 'intermediate') {
-      productName = 'Intermediate ' + productName;
     }
     
     // Generate a unique booking ID
