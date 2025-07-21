@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Alexandra Calvo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-bg: #000;
+      --primary-text: #fff;
+      --accent: #888;
+      --section-bg: rgba(0, 0, 0, 0.8);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--primary-bg);
+      color: var(--primary-text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: var(--primary-bg);
+      position: relative;
+      z-index: 10;
+    }
+    
+    .site-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 3rem;
+      color: var(--primary-text);
+      margin-bottom: 10px;
+    }
+    
+    .site-subtitle {
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+    
+    .main-container {
+      margin-bottom: -20px;
+      display: flex;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 20px 0 20px; /* Removed bottom padding completely */
+    }
+    
+    .profile-section {
+      flex: 0.8;
+      position: relative;
+      margin-right: 30px;
+      display: flex;
+      align-items: flex-start; /* Changed from center to flex-start */
+      justify-content: center;
+    }
+    
+    .profile-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 5px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      max-width: 100%;
+    }
+    
+    .bio-section {
+      flex: 1.2;
+      background-color: var(--section-bg);
+      padding: 30px 30px 0 30px; /* Completely removed bottom padding */
+      border-radius: 5px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .bio-section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 10px;
+    }
+    
+    .bio-section p {
+      margin-bottom: 20px;
+      font-weight: 300;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+    
+    /* Remove bottom margin from last paragraph */
+    .bio-section p:last-child {
+      margin-bottom: 0;
+    }
+    
+    .slideshow-section {
+      margin-top: -30px;
+      margin-top: -5px; /* Added negative margin to pull it up */
+      padding: 0 20px; /* Removed top padding completely */
+      background-color: var(--section-bg);
+      border-radius: 5px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .slideshow-title {
+      text-align: center;
+      font-size: 2rem;
+      margin: 0 0 30px 0; /* Removed top margin completely */
+      padding-top: 10px; /* Added minimal padding to prevent text from touching the top edge */
+      font-weight: 700;
+      color: var(--primary-text);
+    }
+    
+    .slideshow-container {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+      height: 500px;
+      overflow: hidden;
+    }
+    
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .slide.active {
+      opacity: 1;
+    }
+    
+    .slide img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 5px;
+    }
+    
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      font-weight: bold;
+      padding: 10px 15px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 10;
+      transition: background-color 0.3s ease;
+    }
+    
+    .prev:hover, .next:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    
+    .prev {
+      left: 10px;
+    }
+    
+    .next {
+      right: 10px;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: var(--primary-bg);
+      color: var(--accent);
+      margin-top: 40px;
+    }
+    
+    .back-link {
+      margin-bottom: 20px;
+      display: inline-block;
+      margin-top: 20px;
+      color: var(--primary-text);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 10px 20px;
+      border: 1px solid var(--accent);
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .back-link:hover {
+      background-color: var(--accent);
+      color: var(--primary-bg);
+    }
+    
+    @media (max-width: 900px) {
+  .profile-image {
+    height: auto !important;
+    max-height: none !important;
+  }
+
+  .bio-section {
+    padding-bottom: 20px;
+  }
+
+  .slideshow-section {
+    margin-top: 20px;
+  }
+
+      .main-container {
+      margin-bottom: -20px;
+        flex-direction: column;
+      }
+      
+      .profile-section {
+        margin-right: 0;
+        margin-bottom: 30px;
+        height: auto;
+      }
+      
+      .profile-image {
+        max-width: 80%;
+        margin: 0 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="site-title">Alexandra Calvo</h1>
+    <h2 class="site-subtitle">Actress • Dancer • Teacher</h2>
+  </header>
+  
+  <div class="main-container">
+    <div class="profile-section">
+      <img src="images/alexandra-recent-cropped-01.jpeg" alt="Alexandra Calvo" class="profile-image">
+    </div>
+    
+    <div class="bio-section">
+      <h2>About Me</h2>
+      <p>I was born in Cartagena, and my passion for dance, circus, and physical expression led me to study at R.E.S.A.D. (Royal School of Dramatic Art), where I earned a degree in dramatic arts specializing in "Gestural" under professionals such as Marta Schinca, Jose Piris, Fabio Mangolini, and Ana Vazquez de Castro, among others.</p>
+      
+      <p>I completed my training with studies in Contemporary Dance with Michelle Man and Jose Reches from 10&10, Oriental Dance at various schools, and Theatrical Improvisation workshops with the Impro-Madrid company. I am constantly training, having completed a master's degree at the Central School of Cinema in recent years, as well as various on-camera seminars.</p>
+      
+      <p>Professionally, I co-direct a company called "Onira Teatro" with which I have two productions currently running. I have participated in theater works such as "Pingüinas" by Fernando Arrabal, produced by Teatro Español and directed by Juan Carlos Pérez de la Fuente, "Romance de lobos" dir. Jose Piris, "El corral de la Bernarda" dir. Luis Gimenez, "Troppos" dir. Matias Zanotti, "Juicio a los humanos" dir. Jose Piris (currently on tour), and with "No me acuerdo" and "Cardiopatías" directed by Dani Llull.</p>
+      
+      <p>I have participated in various audiovisual projects and performances as an actress and belly dancer. For more than 7 years, I have been teaching Oriental dance and theater at different schools in Madrid.</p>
+    </div>
+  </div>
+  
+  <div class="slideshow-section">
+    <h2 class="slideshow-title">Gallery</h2>
+    <div class="slideshow-container">
+      <!-- Slides will be dynamically generated -->
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
+    </div>
+  </div>
+  
+  <footer>
+    <a href="new-index.html" class="back-link">Back to Home</a>
+    <p>&copy; 2025 Alexandra Calvo Arts. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Dynamic Slideshow functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const slideshowContainer = document.querySelector('.slideshow-container');
+      const baseImagePath = 'images/about-alexandra-';
+      const imageExtension = '.jpg';  // Consistent extension for all images
+      const loadedImages = [];
+      
+      // Function to check if an image exists and add it to the slideshow
+      function checkImage(imageName) {
+        return new Promise((resolve) => {
+          const img = new Image();
+          const fullPath = baseImagePath + imageName + imageExtension;
+          
+          img.onload = function() {
+            // Image exists, add it to our array
+            loadedImages.push({
+              name: imageName,
+              src: fullPath,
+              alt: "Alexandra Calvo"
+            });
+            resolve(true);
+          };
+          
+          img.onerror = function() {
+            // Image doesn't exist
+            resolve(false);
+          };
+          
+          img.src = fullPath;
+        });
+      }
+      
+      // Function to extract a sort key from the image name
+      function getSortKey(imageName) {
+        // If it's a number, convert to number for proper sorting
+        if (/^\d+$/.test(imageName)) {
+          return parseInt(imageName, 10);
+        }
+        // Otherwise return the string for alphabetical sorting
+        return imageName;
+      }
+      
+      // Async function to load all images
+      async function loadAllImages() {
+        const imagePromises = [];
+        
+        // Check numbered images (01-99)
+        for (let i = 1; i <= 99; i++) {
+          const paddedNumber = i.toString().padStart(2, '0');
+          imagePromises.push(checkImage(paddedNumber));
+        }
+        
+        // Check known named patterns
+        const namedPatterns = [
+          'dance-01', 'dance-02', 'dance-03', 'dance-04',
+          'performance-01', 'performance-02', 'performace-03', 'performace-04',
+          'juicio-cartel', 'juicio-cmtlc-01', 'juicio-danza', 'juicio-kali-02', 'juicio-pincho',
+          'pinguinas-01', 'pinguinas-02',
+          'cardiopatias-01', 'cardiopatias-02',
+          'no-me-acuerdo', 'kali-01', 'body-painting-02', 'cmtlc-02',
+          'show-01', 'street-01', 'street-02', 'recent'
+        ];
+        
+        for (const pattern of namedPatterns) {
+          imagePromises.push(checkImage(pattern));
+        }
+        
+        // Wait for all image checks to complete
+        await Promise.all(imagePromises);
+        
+        // Sort images for consistent ordering
+        loadedImages.sort((a, b) => {
+          const keyA = getSortKey(a.name);
+          const keyB = getSortKey(b.name);
+          
+          if (typeof keyA === 'number' && typeof keyB === 'number') {
+            return keyA - keyB; // Numeric sorting
+          }
+          
+          // Convert to strings for comparison
+          return String(keyA).localeCompare(String(keyB)); // Alphabetical sorting
+        });
+      }
+      
+      // Initialize the slideshow
+      async function initializeSlideshow() {
+        try {
+          // Load all images
+          await loadAllImages();
+          
+          if (loadedImages.length === 0) {
+            console.warn('No images found with the pattern "about-alexandra-*"');
+            return;
+          }
+          
+          // Create slides for each image
+          loadedImages.forEach((image, index) => {
+            const slide = document.createElement('div');
+            slide.className = 'slide';
+            if (index === 0) slide.classList.add('active');
+            
+            const img = document.createElement('img');
+            img.src = image.src;
+            img.alt = image.alt;
+            
+            slide.appendChild(img);
+            
+            // Insert before the navigation buttons
+            const buttons = slideshowContainer.querySelectorAll('button');
+            if (buttons.length > 0) {
+              slideshowContainer.insertBefore(slide, buttons[0]);
+            } else {
+              slideshowContainer.appendChild(slide);
+            }
+          });
+          
+          // Set up slideshow navigation
+          const slides = document.querySelectorAll('.slide');
+          let currentSlide = 0;
+          
+          // Previous button
+          document.querySelector('.prev').addEventListener('click', () => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+          });
+          
+          // Next button
+          document.querySelector('.next').addEventListener('click', () => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+          });
+          
+          // Auto advance slides every 5 seconds
+          setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+          }, 5000);
+          
+        } catch (error) {
+          console.error('Error initializing slideshow:', error);
+        }
+      }
+      
+      // Start the slideshow initialization
+      initializeSlideshow();
+    });
+    
+    // Ensure image height matches bio section height
+    document.addEventListener('DOMContentLoaded', function() {
+      // Function to match heights
+      function matchHeight() {
+        const bioSection = document.querySelector('.bio-section');
+        const bioTitle = document.querySelector('.bio-section h2'); // The "About Me" heading
+        const bioParagraphs = document.querySelectorAll('.bio-section p');
+        const firstParagraph = bioParagraphs[0];
+        const lastParagraph = bioParagraphs[bioParagraphs.length - 1];
+        const profileSection = document.querySelector('.profile-section');
+        const profileImage = document.querySelector('.profile-image');
+        
+        if (window.innerWidth > 900) {
+          // Get the position of the first paragraph relative to the bio section
+          const firstParagraphTop = firstParagraph.offsetTop - bioSection.offsetTop;
+          
+          // Get the position of the bottom of the last paragraph relative to the bio section
+          const lastParagraphBottom = lastParagraph.offsetTop + lastParagraph.offsetHeight - bioSection.offsetTop;
+          
+          // Calculate the exact height from first paragraph to last paragraph
+          const textContentHeight = lastParagraphBottom - firstParagraphTop;
+          
+          // Set the profile section height to match bio section
+          profileSection.style.height = bioSection.offsetHeight + 'px';
+          
+          // Set the image to exactly match the text content height
+          profileImage.style.height = textContentHeight + 'px';
+          profileImage.style.maxHeight = textContentHeight + 'px';
+          
+          // Add top margin to align with the first paragraph
+          profileImage.style.marginTop = firstParagraphTop + 'px';
+          
+          // Ensure the image is positioned at the top of its container
+          profileSection.style.alignItems = 'flex-start';
+          
+          // Add debugging info
+          console.log('Bio section height:', bioSection.offsetHeight);
+          console.log('First paragraph top:', firstParagraphTop);
+          console.log('Last paragraph bottom:', lastParagraphBottom);
+          console.log('Text content height:', textContentHeight);
+        } else {
+          // Reset styles for mobile view
+          profileSection.style.height = 'auto';
+          profileImage.style.height = 'auto';
+          profileImage.style.maxHeight = 'none';
+          profileImage.style.marginTop = '0';
+          profileImage.style.marginBottom = '0';
+          profileSection.style.alignItems = 'center';
+        }
+      }
+      
+      // Initial run
+      setTimeout(matchHeight, 10); // Small delay to ensure DOM is fully processed
+      
+      // Run when window is resized
+      window.addEventListener('resize', matchHeight);
+      
+      // Run after all content is loaded
+      window.addEventListener('load', matchHeight);
+      
+      // Run periodically for the first few seconds to handle any dynamic content
+      let counter = 0;
+      const interval = setInterval(function() {
+        matchHeight();
+        counter++;
+        if (counter >= 10) clearInterval(interval); // Stop after 10 attempts (5 seconds)
+      }, 500);
+    });
+  </script>
+</body>
+</html>

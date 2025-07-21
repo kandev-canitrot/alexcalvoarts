@@ -6,14 +6,9 @@
   <title>Alexandra Calvo Arts</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary-bg: #3A2A5E;
-      --primary-text: #F9D84A;
-      --accent: #5ECFB1;
-    }
-    
+    /* Global Styles */
     * {
       margin: 0;
       padding: 0;
@@ -22,120 +17,302 @@
     
     body {
       font-family: 'Montserrat', sans-serif;
-      background-color: var(--primary-bg);
-      color: white;
       line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      overflow-x: hidden;
     }
     
     .container {
-      max-width: 800px;
+      width: 100%;
       margin: 0 auto;
-      padding: 40px;
+    }
+    
+    /* Header Styles */
+    header {
       text-align: center;
+      padding: 20px;
+      background-color: #000;
+      color: white;
     }
     
     .site-title {
-      font-family: 'Dancing Script', cursive;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
       font-size: 4rem;
-      color: var(--primary-text);
-      margin-bottom: 20px;
+      color: white;
+      margin-bottom: 10px;
     }
     
     .site-subtitle {
       font-size: 1.8rem;
-      font-weight: 700;
+      font-weight: 300;
       letter-spacing: 2px;
-      color: var(--accent);
-      margin-bottom: 60px;
+      color: white;
+      margin-bottom: 20px;
     }
     
-    .links-container {
+    /* Section Styles */
+    .section {
+      position: relative;
+      height: 60vh;
       display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 40px;
-      margin-top: 40px;
+      color: white;
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+      width: 100%;
     }
     
-    .art-link {
-      display: block;
-      padding: 20px 40px;
+    .section-content {
+      text-align: center;
+      z-index: 2;
+      padding: 20px;
+      max-width: 800px;
+    }
+    
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+    
+    /* Belly Dance Section */
+    .belly-dance-section {
+      background-image: url('images/belly-dance-pic-01-cropped-a.png');
+    }
+    
+    .belly-dance-section .section-content h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 4rem;
+      color: #F9D84A;
+      margin-bottom: 20px;
+    }
+    
+    .belly-dance-section .section-content p {
       font-size: 1.5rem;
+      margin-bottom: 30px;
+      color: white;
+    }
+    
+    .belly-dance-section .learn-more-btn {
+      background-color: #F9D84A;
+      color: #3A2A5E;
+      padding: 15px 30px;
+      font-size: 1.2rem;
       font-weight: bold;
       text-decoration: none;
-      border-radius: 10px;
+      border-radius: 8px;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      display: inline-block;
+      margin-top: 20px;
     }
     
-    .belly-dance-link {
-      background-color: var(--primary-text);
-      color: var(--primary-bg);
-    }
-    
-    .theater-link {
-      background-color: var(--accent);
-      color: var(--primary-bg);
-    }
-    
-    .art-link:hover {
+    .belly-dance-section .learn-more-btn:hover {
       transform: translateY(-3px);
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
       filter: brightness(110%);
     }
     
-    .art-link:active {
-      transform: translateY(0);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    /* Theater Spanish Section */
+    .theater-spanish-section {
+      background-image: url('images/theater-spanish-04.jpg');
     }
     
+    .theater-spanish-section .section-content h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 4rem;
+      color: white;
+      margin-bottom: 20px;
+    }
+    
+    .theater-spanish-section .section-content p {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+      color: white;
+    }
+    
+    .theater-spanish-section .learn-more-btn {
+      background-color: #588157;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    
+    .theater-spanish-section .learn-more-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+      filter: brightness(110%);
+    }
+    
+    /* About Alexandra Section */
+    .about-section {
+      background-image: url('images/about-alexandra-01.avif');
+    }
+    
+    .about-section .section-content h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 4rem;
+      color: white;
+      margin-bottom: 20px;
+    }
+    
+    .about-section .section-content p {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+      color: white;
+    }
+    
+    .about-section .learn-more-btn {
+      background-color: rgba(255, 255, 255, 0.8);
+      color: #333;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    
+    .about-section .learn-more-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+      background-color: white;
+    }
+    
+    /* Footer Styles */
     footer {
-      margin-top: 80px;
       text-align: center;
-      font-size: 0.9rem;
+      padding: 20px;
+      background-color: #000;
       color: rgba(255, 255, 255, 0.7);
     }
     
-    /* Responsive styles */
+    /* Responsive Styles */
     @media (max-width: 768px) {
+      .section {
+        height: 50vh;
+        min-height: 400px;
+      }
+      
       .site-title {
         font-size: 3rem;
       }
       
       .site-subtitle {
         font-size: 1.5rem;
-        margin-bottom: 40px;
       }
       
-      .links-container {
-        flex-direction: column;
-        gap: 20px;
+      .section-content h2 {
+        font-size: 3rem !important;
       }
       
-      .art-link {
-        padding: 15px 30px;
-        font-size: 1.3rem;
+      .section-content p {
+        font-size: 1.2rem !important;
+      }
+      
+      .learn-more-btn {
+        padding: 12px 25px !important;
+        font-size: 1.1rem !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .section {
+        height: 40vh;
+        min-height: 300px;
+      }
+      
+      .site-title {
+        font-size: 2.5rem;
+      }
+      
+      .site-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .section-content h2 {
+        font-size: 2.5rem !important;
+      }
+      
+      .section-content p {
+        font-size: 1rem !important;
+      }
+      
+      .learn-more-btn {
+        padding: 10px 20px !important;
+        font-size: 1rem !important;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <header>
     <h1 class="site-title">Alexandra Calvo</h1>
     <h2 class="site-subtitle">Arts</h2>
-    
-    <div class="links-container">
-      <a href="AlexCalvoArtsBellyDance.html" class="art-link belly-dance-link">Belly Dance</a>
-      <a href="AlexCalvoArtsTheaterSpanish.html" class="art-link theater-link">Theater in Spanish</a>
-    </div>
-    
-    <footer>
-      <p>&copy; 2025 Alexandra Calvo Arts. All rights reserved.</p>
-    </footer>
+  </header>
+
+  <div>
+    <!-- Belly Dance Section -->
+    <section class="section belly-dance-section">
+      <div class="section-content">
+        <h2>Belly Dance Classes</h2>
+        <p>Thursdays 7PM Beginner and 8PM Intermediate<br>
+        Ringsend & Irishtown Community Centre</p>
+        <a href="AlexCalvoArtsBellyDance.html" class="learn-more-btn">Learn More</a>
+      </div>
+    </section>
+
+    <!-- Theater Spanish Section -->
+    <section class="section theater-spanish-section">
+      <div class="section-content">
+        <h2>Theater in Spanish</h2>
+        <p>Wednesdays 7 - 8:30PM<br>
+        Sandymount Community Centre</p>
+        <a href="AlexCalvoArtsTheaterSpanish.html" class="learn-more-btn">Learn More</a>
+      </div>
+    </section>
+
+    <!-- About Alexandra Section -->
+    <section class="section about-section">
+      <div class="section-content">
+        <h2>About Alexandra</h2>
+        <p>Discover Alexandra's artistic journey and professional experience</p>
+        <a href="AlexCalvoArtsAboutMe.html" class="learn-more-btn">Learn More</a>
+      </div>
+    </section>
   </div>
+
+  <footer>
+    <p>&copy; 2025 Alexandra Calvo Arts. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Make sections clickable to navigate to their respective pages
+    document.querySelectorAll('.section').forEach(section => {
+      section.addEventListener('click', (e) => {
+        // Only navigate if the click wasn't on the button (to avoid double navigation)
+        if (!e.target.classList.contains('learn-more-btn')) {
+          const link = section.querySelector('.learn-more-btn').getAttribute('href');
+          window.location.href = link;
+        }
+      });
+    });
+  </script>
 </body>
 </html>
