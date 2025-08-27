@@ -4,8 +4,9 @@
   "description": "Lambda function to handle Stripe webhook events",
   "main": "index.js",
   "dependencies": {
-    "aws-sdk": "^2.1048.0",
-    "stripe": "^8.194.0"
+    "aws-sdk": "^2.1692.0",
+    "stripe": "^8.194.0",
+    "uuid": "^11.1.0"
   },
   "author": "",
   "license": "ISC"

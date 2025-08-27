@@ -50,6 +50,16 @@ exports.handler = async (event) => {
       };
     }
     
+    // Validate payment type
+    const allowedPaymentTypes = ['full', 'deposit', 'completion'];
+    if (!allowedPaymentTypes.includes(paymentType)) {
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ error: 'Invalid payment type' })
+      };
+    }
+    
     // Determine product name based on class level and payment type
     let productName = '';
     let isFullTerm = paymentType === 'full';
@@ -73,6 +83,8 @@ exports.handler = async (event) => {
       productName += ' - Deposit';
     } else if (paymentType === 'full') {
       productName += ' - Full Term';
+    } else if (paymentType === 'completion') {
+      productName += ' - Term Completion';
     }
     
     // Generate a unique booking ID

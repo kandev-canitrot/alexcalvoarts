@@ -78,11 +78,15 @@ exports.handler = async (event) => {
         amount = 12000; // €120.00 in cents (full term)
       } else if (booking.paymentType === 'deposit') {
         amount = 2000; // €20.00 in cents (deposit)
+      } else if (booking.paymentType === 'completion') {
+        amount = 10000; // €100.00 in cents (remaining balance after deposit)
       }
     } else {
       // Belly Dance class pricing
       if (booking.paymentType === 'deposit') {
         amount = 5000; // €50.00 in cents (deposit)
+      } else if (booking.paymentType === 'completion') {
+        amount = 6000; // €60.00 in cents (remaining balance after deposit)
       }
     }
     

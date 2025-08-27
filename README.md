@@ -102,8 +102,8 @@ Browser ────────────────────────
 - Creates a Stripe checkout session for payment processing
 - Retrieves booking details from DynamoDB using the booking ID
 - Sets the appropriate amount based on offering type and payment type:
-  - Belly Dance: €110 for full term, €50 for deposit
-  - Spanish Theater: €120 for full term, €20 for deposit
+  - Belly Dance: €110 for full term, €50 for deposit, €60 for completion
+  - Spanish Theater: €120 for full term, €20 for deposit, €100 for completion
 - Updates the booking record with the Stripe session ID
 - Returns the Stripe checkout URL for redirection with offering-specific success URLs
 
@@ -124,7 +124,7 @@ Browser ────────────────────────
 - **Schema**:
   - Primary Key: `bookingId` (UUID)
   - Customer Information: name, surname, email, phoneNumber
-  - Booking Details: courseBooking, classLevel (beginner/intermediate/theater), paymentType
+  - Booking Details: courseBooking, classLevel (beginner/intermediate/theater), paymentType (full/deposit/completion)
   - Payment Information: paymentStatus, stripeSessionId
   - Timestamps: day, month, year, hour, min, sec
 - **Streams**: Enabled to trigger the notify-booking-lambda
@@ -145,9 +145,11 @@ Browser ────────────────────────
   - Belly Dance:
     - Full term payment (€110)
     - Deposit payment (€50)
+    - Completion payment (€60) - for users who paid deposit and want to complete full term
   - Spanish Theater:
     - Full term payment (€120)
     - Deposit payment (€20)
+    - Completion payment (€100) - for users who paid deposit and want to complete full term
 - Webhook integration for payment status updates
 - Stripe secret keys stored securely in Lambda environment variables
 
@@ -206,8 +208,9 @@ project-root/
    - For Belly Dance: User selects a class level (Beginner or Intermediate)
    - For Spanish Theater: User views the available theater class
    - User chooses payment option:
-     - Belly Dance: Full term €110 or Deposit €50
-     - Spanish Theater: Full term €120 or Deposit €20
+     - Belly Dance: Full term €110, Deposit €50, or Completion €60
+     - Spanish Theater: Full term €120, Deposit €20, or Completion €100
+     - Completion option is for users who already paid a deposit and want to complete the full term
    - Selection is stored in browser's sessionStorage
    - Loading animation appears on button during processing
 

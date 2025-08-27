@@ -163,6 +163,22 @@
       color: white;
     }
     
+    .completion-button {
+      background-color: #2A9D8F;
+      color: white;
+    }
+    
+    .completion-separator {
+      margin: 25px 0 15px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-align: center;
+      color: var(--primary-text);
+      font-style: italic;
+      padding-top: 20px;
+      border-top: 2px solid var(--accent);
+    }
+    
     .checkout-button:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
@@ -552,6 +568,12 @@
           </button>
           <button class="checkout-button deposit-button" data-class-level="theater" data-payment-type="deposit">
             <div class="button-content">Book spot with deposit (€20)</div>
+          </button>
+          
+          <p class="completion-separator">If you have already booked your spot with a deposit and wish to complete the full-term booking:</p>
+          
+          <button class="checkout-button completion-button" data-class-level="theater" data-payment-type="completion">
+            <div class="button-content">Complete Term Booking (€100)</div>
           </button>
         </div>
       </div>
