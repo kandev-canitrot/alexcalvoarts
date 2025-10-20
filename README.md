@@ -262,6 +262,163 @@ project-root/
 | Route 53 Records   | Global        | DNS management                                |
 | Stripe Integration | Global        | Payment processing and webhooks               |
 
+## 🚀 Deployment & Update Instructions
+
+### Updating the S3 Static Site
+
+To update the static website files in the S3 bucket, use the following AWS CLI commands:
+
+#### Upload Individual Files
+```bash
+# Upload a specific HTML file
+aws s3 cp s3-site/AlexCalvoArtsBellyDance.html s3://alexcalvoarts.com/
+
+# Upload JavaScript files
+aws s3 cp s3-site/js/booking.js s3://alexcalvoarts.com/js/
+
+# Upload with specific content type (if needed)
+aws s3 cp s3-site/index.html s3://alexcalvoarts.com/ --content-type "text/html"
+```
+
+#### Sync Entire Directory
+```bash
+# Sync the entire s3-site directory to S3 bucket
+aws s3 sync s3-site/ s3://alexcalvoarts.com/
+
+# Sync with delete option (removes files not present locally)
+aws s3 sync s3-site/ s3://alexcalvoarts.com/ --delete
+
+# Sync with cache control headers for better performance
+aws s3 sync s3-site/ s3://alexcalvoarts.com/ --cache-control "max-age=3600"
+```
+
+#### Invalidate CloudFront Cache
+After uploading new files, invalidate the CloudFront cache to ensure changes are immediately visible:
+
+```bash
+# Get the CloudFront distribution ID
+aws cloudfront list-distributions --query 'DistributionList.Items[?contains(Aliases.Items, `alexcalvoarts.com`)].Id' --output text
+
+# Create invalidation for all files
+aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
+
+# Create invalidation for specific files only
+aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/AlexCalvoArtsBellyDance.html" "/js/booking.js"
+```
+
+### Updating Lambda Functions
+
+When changes are made to the Lambda function code, follow these steps to deploy the updates:
+
+#### Option 1: Using AWS CLI with Zip Deployment
+
+1. **Prepare the deployment package:**
+```bash
+# Navigate to the Lambda function directory
+cd lambda-store-booking/
+
+# Install dependencies (if package.json changed)
+npm install
+
+# Create deployment zip
+zip -r ../store-booking-lambda.zip . -x "*.git*" "node_modules/.cache/*"
+```
+
+2. **Update the Lambda function:**
+```bash
+# Update function code
+aws lambda update-function-code --function-name store-booking-lambda --zip-file fileb://../store-booking-lambda.zip --region us-east-1
+
+# Update function configuration (if environment variables changed)
+aws lambda update-function-configuration --function-name store-booking-lambda --environment Variables='{STRIPE_SECRET_KEY=your_key_here,DYNAMODB_TABLE=AlexCalvoArtsDanceBookings}' --region us-east-1
+```
+
+#### Option 2: Direct Code Update (for small changes)
+
+```bash
+# Update function code directly from directory
+aws lambda update-function-code --function-name store-booking-lambda --zip-file fileb://$(cd lambda-store-booking && zip -r - . | base64) --region us-east-1
+```
+
+#### Update All Lambda Functions
+
+Script to update all Lambda functions at once:
+
+```bash
+#!/bin/bash
+
+# Array of Lambda functions and their directories
+declare -A functions=(
+    ["store-booking-lambda"]="lambda-store-booking"
+    ["stripe-lambda"]="lambda-stripe"
+    ["webhook-lambda"]="lambda-webhook"
+    ["notify-booking-lambda"]="lambda-notify-booking"
+)
+
+# Update each function
+for function_name in "${!functions[@]}"; do
+    echo "Updating $function_name..."
+    cd "${functions[$function_name]}"
+    
+    # Install dependencies if package.json exists and was modified
+    if [ -f package.json ]; then
+        npm install
+    fi
+    
+    # Create zip and update function
+    zip -r "../${function_name}.zip" . -x "*.git*" "node_modules/.cache/*"
+    aws lambda update-function-code --function-name "$function_name" --zip-file "fileb://../${function_name}.zip" --region us-east-1
+    
+    cd ..
+    echo "$function_name updated successfully"
+done
+```
+
+#### Environment Variables Update
+
+If you need to update environment variables for any Lambda function:
+
+```bash
+# Update environment variables for stripe-lambda
+aws lambda update-function-configuration \
+    --function-name stripe-lambda \
+    --environment Variables='{
+        STRIPE_SECRET_KEY=sk_live_your_secret_key,
+        DYNAMODB_TABLE=AlexCalvoArtsDanceBookings,
+        WEBHOOK_ENDPOINT_SECRET=whsec_your_webhook_secret
+    }' \
+    --region us-east-1
+```
+
+#### Testing Lambda Functions
+
+After deployment, test the functions:
+
+```bash
+# Test store-booking-lambda with sample event
+aws lambda invoke \
+    --function-name store-booking-lambda \
+    --payload '{"name":"Test","surname":"User","email":"test@example.com","phoneNumber":"123456789","courseBooking":"belly-dance","classLevel":"beginner","paymentType":"full"}' \
+    --region us-east-1 \
+    response.json
+
+# Check the response
+cat response.json
+```
+
+### Pre-deployment Checklist
+
+Before updating production:
+
+- [ ] Test all changes locally
+- [ ] Verify environment variables are correctly set
+- [ ] Ensure all dependencies are included in package.json
+- [ ] Test Lambda functions with sample events
+- [ ] Verify S3 bucket permissions
+- [ ] Check CloudFront distribution settings
+- [ ] Test the complete booking flow end-to-end
+- [ ] Verify Stripe webhook endpoints are updated if necessary
+
 ## 🔒 Security Notes
 
 - No user login required - simple booking flow
