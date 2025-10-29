@@ -271,13 +271,13 @@ To update the static website files in the S3 bucket, use the following AWS CLI c
 #### Upload Individual Files
 ```bash
 # Upload a specific HTML file
-aws s3 cp s3-site/AlexCalvoArtsBellyDance.html s3://alexcalvoarts.com/
+aws --profile alexcalvoarts s3 cp s3-site/AlexCalvoArtsBellyDance.html s3://alexcalvoarts.com/ --content-type "text/html"
 
 # Upload JavaScript files
-aws s3 cp s3-site/js/booking.js s3://alexcalvoarts.com/js/
+aws --profile alexcalvoarts s3 cp s3-site/js/booking.js s3://alexcalvoarts.com/js/
 
 # Upload with specific content type (if needed)
-aws s3 cp s3-site/index.html s3://alexcalvoarts.com/ --content-type "text/html"
+aws --profile alexcalvoarts s3 cp s3-site/index.html s3://alexcalvoarts.com/ --content-type "text/html"
 ```
 
 #### Sync Entire Directory
@@ -304,6 +304,10 @@ aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --path
 
 # Create invalidation for specific files only
 aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/AlexCalvoArtsBellyDance.html" "/js/booking.js"
+```
+Specific:
+```bash
+aws --profile alexcalvoarts cloudfront create-invalidation --distribution-id E35E39UNP1MBJC --paths "/AlexCalvoArtsTheaterSpanish.html" "/AlexCalvoArtsBellyDance.html" "/belly-dance-booking-form.html" "/theater-booking-form.html
 ```
 
 ### Updating Lambda Functions
@@ -404,6 +408,13 @@ aws lambda invoke \
 
 # Check the response
 cat response.json
+```
+
+### Git Update
+```bash
+git add -A
+git commit -m "<message>"
+git push origin main
 ```
 
 ### Pre-deployment Checklist
