@@ -71,6 +71,7 @@ Browser ────────────────────────
 
 - **Main Pages**:
   - `index.html`: Main landing page with links to different offerings
+  - `AlexCalvoArtsAboutMe.html`: About page with Alexandra's biography and background
   - **Belly Dance Pages**:
     - `AlexCalvoArtsBellyDance.html`: Displays belly dance classes with booking options
     - `belly-dance-booking-form.html`: Collects customer information for belly dance bookings
@@ -166,6 +167,7 @@ Browser ────────────────────────
 project-root/
 ├── s3-site/                      # Static website files
 │   ├── index.html                # Main landing page
+│   ├── AlexCalvoArtsAboutMe.html       # About Alexandra page
 │   ├── AlexCalvoArtsBellyDance.html    # Belly dance classes page
 │   ├── belly-dance-booking-form.html   # Belly dance booking form
 │   ├── belly-dance-thank-you.html      # Belly dance success page
@@ -271,7 +273,9 @@ To update the static website files in the S3 bucket, use the following AWS CLI c
 #### Upload Individual Files
 ```bash
 # Upload a specific HTML file
+cd C:\Users\ivanc\Documents\alexcalvoarts\
 aws --profile alexcalvoarts s3 cp s3-site/AlexCalvoArtsBellyDance.html s3://alexcalvoarts.com/ --content-type "text/html"
+aws --profile alexcalvoarts s3 cp s3-site/AlexCalvoArtsTheaterSpanish.html s3://alexcalvoarts.com/ --content-type "text/html"
 
 # Upload JavaScript files
 aws --profile alexcalvoarts s3 cp s3-site/js/booking.js s3://alexcalvoarts.com/js/
@@ -307,7 +311,7 @@ aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --path
 ```
 Specific:
 ```bash
-aws --profile alexcalvoarts cloudfront create-invalidation --distribution-id E35E39UNP1MBJC --paths "/AlexCalvoArtsTheaterSpanish.html" "/AlexCalvoArtsBellyDance.html" "/belly-dance-booking-form.html" "/theater-booking-form.html
+aws --profile alexcalvoarts cloudfront create-invalidation --distribution-id E35E39UNP1MBJC --paths "/AlexCalvoArtsTheaterSpanish.html" "/AlexCalvoArtsBellyDance.html" "/AlexCalvoArtsAboutMe.html" "/belly-dance-booking-form.html" "/theater-booking-form.html"
 ```
 
 ### Updating Lambda Functions
