@@ -73,7 +73,7 @@ Browser ────────────────────────
   - `index.html`: Main landing page with links to different offerings
   - `AlexCalvoArtsAboutMe.html`: About page with Alexandra's biography and background
   - **Belly Dance Pages**:
-    - `AlexCalvoArtsBellyDance.html`: Displays belly dance classes with booking options
+    - `AlexCalvoArtsBellyDance.html`: Displays a single open-level belly dance class with booking options
     - `belly-dance-booking-form.html`: Collects customer information for belly dance bookings
     - `belly-dance-thank-you.html`: Confirmation page after successful belly dance payment
   - **Spanish Theater Pages**:
@@ -96,7 +96,7 @@ Browser ────────────────────────
 #### a. Store Booking Lambda (`store-booking-lambda`)
 - Creates a new booking record in DynamoDB
 - Validates user input and generates a unique booking ID
-- Determines product name based on class level (belly dance beginner/intermediate or theater)
+- Determines product name based on class level (`open-level` belly dance, or theater)
 - Returns the booking ID for the next step in the process
 
 #### b. Stripe Lambda (`stripe-lambda`)
@@ -143,7 +143,7 @@ Browser ────────────────────────
 
 - Secure payment processing using Stripe Checkout
 - Payment options:
-  - Belly Dance:
+  - Belly Dance (Open Level):
     - Full term payment (€110)
     - Deposit payment (€50)
     - Completion payment (€60) - for users who paid deposit and want to complete full term
@@ -200,6 +200,24 @@ project-root/
 └── README.md                     # Project documentation
 ```
 
+## 🗂️ Intentionally Orphaned Features
+
+The following backend capabilities are **retained in the codebase but no longer exposed in the user-facing UI**. They have been preserved deliberately so they can be re-activated in the future without requiring new backend work.
+
+### Separate Beginner / Intermediate Belly Dance Classes
+
+**What was changed (March 2026):** `AlexCalvoArtsBellyDance.html` previously displayed two side-by-side booking sections — one for Beginner (Thursdays 7:00–8:00 PM) and one for Intermediate (Thursdays 8:00–9:00 PM). These have been merged into a single **Open Level Bellydance Classes** section (Thursdays 7:30–8:30 PM).
+
+**What is orphaned:**
+- The `classLevel` values `"beginner"` and `"intermediate"` are no longer submitted from the UI, but the backend fully supports them:
+  - `lambda-store-booking/index.js`: still contains product-name logic for `beginner` and `intermediate` class levels (with an inline comment explaining this).
+  - `lambda-stripe/index.js`: the pricing and success/cancel URL logic applies to all non-`theater` class levels, including `beginner` and `intermediate`.
+- The original image for the Intermediate section (`belly-dance-pic-03.jpg`) is retained in the S3 bucket but is no longer referenced from the belly dance page.
+
+**How to re-activate:** To restore separate Beginner and Intermediate sections, reintroduce the two-column `class-section` blocks in `AlexCalvoArtsBellyDance.html` with `data-class-level="beginner"` and `data-class-level="intermediate"` respectively. No Lambda or DynamoDB changes are required.
+
+---
+
 ## 🔄 Workflow
 
 1. **Service Selection**:
@@ -207,7 +225,7 @@ project-root/
    - User is directed to the specific offering page
 
 2. **Class Selection**:
-   - For Belly Dance: User selects a class level (Beginner or Intermediate)
+   - For Belly Dance: User sees the single Open Level class and selects a payment option
    - For Spanish Theater: User views the available theater class
    - User chooses payment option:
      - Belly Dance: Full term €110, Deposit €50, or Completion €60
@@ -235,8 +253,8 @@ project-root/
    - Administrators receive real-time alerts about the new booking
 
 6. **Payment Processing**:
-   - Booking ID is sent to stripe-lambda
-   - stripe-lambda retrieves booking details from DynamoDB
+   - Booking ID is sent to `createCheckoutSession` Lambda
+   - Lambda retrieves booking details from DynamoDB
    - Creates a Stripe checkout session with appropriate amount based on offering type and payment option
    - Updates DynamoDB record with Stripe session ID
    - Returns Stripe checkout URL specific to the offering type
@@ -247,8 +265,8 @@ project-root/
    - Stripe redirects to the appropriate thank-you page based on offering type
 
 8. **Payment Confirmation**:
-   - Stripe sends a webhook event to webhook-lambda
-   - webhook-lambda verifies the webhook signature
+   - Stripe sends a webhook event to `stripeWebhookHandler` Lambda
+   - Lambda verifies the webhook signature
    - Updates the booking status to "completed" in DynamoDB
 
 ## ✅ Deployment Summary
@@ -297,122 +315,90 @@ aws s3 sync s3-site/ s3://alexcalvoarts.com/ --cache-control "max-age=3600"
 ```
 
 #### Invalidate CloudFront Cache
-After uploading new files, invalidate the CloudFront cache to ensure changes are immediately visible:
+After uploading new files, invalidate the CloudFront cache to ensure changes are immediately visible.
 
-```bash
-# Get the CloudFront distribution ID
-aws cloudfront list-distributions --query 'DistributionList.Items[?contains(Aliases.Items, `alexcalvoarts.com`)].Id' --output text
+> ⚠️ **Windows / Git Bash:** single-file path invalidations (e.g. `--paths "/AlexCalvoArtsBellyDance.html"`) fail with `InvalidArgument` in Git Bash due to path mangling. Always use `"/*"` to invalidate everything, or prefix with `MSYS_NO_PATHCONV=1`.
 
-# Create invalidation for all files
-aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
-
-# Create invalidation for specific files only
-aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/AlexCalvoArtsBellyDance.html" "/js/booking.js"
+```powershell
+# Invalidate all files (distribution ID: E35E39UNP1MBJC)
+aws --profile alexcalvoarts cloudfront create-invalidation `
+    --distribution-id E35E39UNP1MBJC `
+    --paths "/*"
 ```
-Specific:
-```bash
-aws --profile alexcalvoarts cloudfront create-invalidation --distribution-id E35E39UNP1MBJC --paths "/AlexCalvoArtsTheaterSpanish.html" "/AlexCalvoArtsBellyDance.html" "/AlexCalvoArtsAboutMe.html" "/belly-dance-booking-form.html" "/theater-booking-form.html"
-```
+
+> CloudFront invalidation only applies to **S3 static files** (HTML, JS, CSS, images). Lambda function updates take effect immediately without any invalidation.
 
 ### Updating Lambda Functions
 
-When changes are made to the Lambda function code, follow these steps to deploy the updates:
+#### ⚠️ Windows / Git Bash notes
 
-#### Option 1: Using AWS CLI with Zip Deployment
+- **`zip` is not available in Git Bash on Windows.** Use PowerShell's `Compress-Archive` instead (see commands below).
+- **`Compress-Archive -Path .` zips the folder itself, not its contents**, causing Lambda to fail with `Cannot find module 'index'`. Always pass an explicit list of files/folders using `-Path @(...)`.
+- **AWS CLI paths starting with `/` are mangled by Git Bash** (e.g. `/aws/lambda/...` becomes `C:/Program Files/Git/aws/lambda/...`). Prefix any such command with `MSYS_NO_PATHCONV=1` to prevent this.
 
-1. **Prepare the deployment package:**
-```bash
-# Navigate to the Lambda function directory
-cd lambda-store-booking/
+#### Lambda function names (actual AWS names)
 
-# Install dependencies (if package.json changed)
-npm install
+| Local directory | AWS function name |
+|---|---|
+| `lambda-store-booking` | `storeBooking` |
+| `lambda-stripe` | `createCheckoutSession` |
+| `lambda-webhook` | `stripeWebhookHandler` |
+| `lambda-notify-booking` | `NewAlexCalvoArtsBookingNotification` |
 
-# Create deployment zip
-zip -r ../store-booking-lambda.zip . -x "*.git*" "node_modules/.cache/*"
+#### Deploy a Lambda function (PowerShell / Windows)
+
+```powershell
+# 1. Zip the contents (NOT the folder) — run from the project root
+cd C:\Users\ivanc\Documents\alexcalvoarts\lambda-store-booking
+powershell Compress-Archive -Path @('index.js','node_modules','package.json','package-lock.json') -DestinationPath ../store-booking-lambda.zip -Force
+cd ..
+
+# 2. Upload to AWS
+aws lambda update-function-code `
+    --function-name storeBooking `
+    --zip-file fileb://store-booking-lambda.zip `
+    --region us-east-1 `
+    --profile alexcalvoarts
 ```
 
-2. **Update the Lambda function:**
-```bash
-# Update function code
-aws lambda update-function-code --function-name store-booking-lambda --zip-file fileb://../store-booking-lambda.zip --region us-east-1
+Repeat for other functions, substituting directory, file list, zip name, and AWS function name accordingly:
 
-# Update function configuration (if environment variables changed)
-aws lambda update-function-configuration --function-name store-booking-lambda --environment Variables='{STRIPE_SECRET_KEY=your_key_here,DYNAMODB_TABLE=AlexCalvoArtsDanceBookings}' --region us-east-1
+| Local directory | AWS function name | Zip name |
+|---|---|---|
+| `lambda-store-booking` | `storeBooking` | `store-booking-lambda.zip` |
+| `lambda-stripe` | `createCheckoutSession` | `stripe-lambda.zip` |
+| `lambda-webhook` | `stripeWebhookHandler` | `webhook-lambda.zip` |
+| `lambda-notify-booking` | `NewAlexCalvoArtsBookingNotification` | `notify-booking-lambda.zip` |
+
+#### Environment Variables
+
+The `createCheckoutSession` Lambda has two Stripe keys and no other variables:
+
+```powershell
+aws lambda update-function-configuration `
+    --function-name createCheckoutSession `
+    --region us-east-1 `
+    --profile alexcalvoarts `
+    --environment "Variables={STRIPE_SECRET_KEY_ALEX=sk_live_...,STRIPE_SECRET_KEY_IVAN=sk_live_...}"
 ```
 
-#### Option 2: Direct Code Update (for small changes)
-
-```bash
-# Update function code directly from directory
-aws lambda update-function-code --function-name store-booking-lambda --zip-file fileb://$(cd lambda-store-booking && zip -r - . | base64) --region us-east-1
-```
-
-#### Update All Lambda Functions
-
-Script to update all Lambda functions at once:
-
-```bash
-#!/bin/bash
-
-# Array of Lambda functions and their directories
-declare -A functions=(
-    ["store-booking-lambda"]="lambda-store-booking"
-    ["stripe-lambda"]="lambda-stripe"
-    ["webhook-lambda"]="lambda-webhook"
-    ["notify-booking-lambda"]="lambda-notify-booking"
-)
-
-# Update each function
-for function_name in "${!functions[@]}"; do
-    echo "Updating $function_name..."
-    cd "${functions[$function_name]}"
-    
-    # Install dependencies if package.json exists and was modified
-    if [ -f package.json ]; then
-        npm install
-    fi
-    
-    # Create zip and update function
-    zip -r "../${function_name}.zip" . -x "*.git*" "node_modules/.cache/*"
-    aws lambda update-function-code --function-name "$function_name" --zip-file "fileb://../${function_name}.zip" --region us-east-1
-    
-    cd ..
-    echo "$function_name updated successfully"
-done
-```
-
-#### Environment Variables Update
-
-If you need to update environment variables for any Lambda function:
-
-```bash
-# Update environment variables for stripe-lambda
-aws lambda update-function-configuration \
-    --function-name stripe-lambda \
-    --environment Variables='{
-        STRIPE_SECRET_KEY=sk_live_your_secret_key,
-        DYNAMODB_TABLE=AlexCalvoArtsDanceBookings,
-        WEBHOOK_ENDPOINT_SECRET=whsec_your_webhook_secret
-    }' \
-    --region us-east-1
-```
+> To read current values before changing them:
+> ```powershell
+> aws lambda get-function-configuration --function-name createCheckoutSession --region us-east-1 --profile alexcalvoarts --query 'Environment'
+> ```
 
 #### Testing Lambda Functions
 
-After deployment, test the functions:
+After deployment, verify the function updated correctly:
 
-```bash
-# Test store-booking-lambda with sample event
-aws lambda invoke \
-    --function-name store-booking-lambda \
-    --payload '{"name":"Test","surname":"User","email":"test@example.com","phoneNumber":"123456789","courseBooking":"belly-dance","classLevel":"beginner","paymentType":"full"}' \
-    --region us-east-1 \
-    response.json
-
-# Check the response
-cat response.json
+```powershell
+aws lambda get-function-configuration `
+    --function-name storeBooking `
+    --region us-east-1 `
+    --profile alexcalvoarts `
+    --query "LastUpdateStatus"
 ```
+Should return `"Successful"`. If still `"InProgress"`, wait a few seconds and retry.
 
 ### Git Update
 ```bash
@@ -425,14 +411,17 @@ git push origin main
 
 Before updating production:
 
-- [ ] Test all changes locally
-- [ ] Verify environment variables are correctly set
-- [ ] Ensure all dependencies are included in package.json
-- [ ] Test Lambda functions with sample events
-- [ ] Verify S3 bucket permissions
-- [ ] Check CloudFront distribution settings
-- [ ] Test the complete booking flow end-to-end
-- [ ] Verify Stripe webhook endpoints are updated if necessary
+- [ ] Deploy updated HTML files to S3
+- [ ] Deploy updated Lambda functions using `Compress-Archive` with explicit file list (see Lambda deploy section)
+- [ ] Verify Lambda update status is `"Successful"` before testing
+- [ ] Invalidate CloudFront cache with `"/*"` after S3 changes
+- [ ] Switch `createCheckoutSession` Lambda to Stripe test key (`sk_test_...`) before running payment tests
+- [ ] Test the complete booking flow end-to-end (all three payment types: full, deposit, completion)
+- [ ] Verify DynamoDB records show correct `classLevel`, `courseBooking`, and `paymentType`
+- [ ] Revert `createCheckoutSession` Lambda back to live Stripe key (`sk_live_...`) after testing
+- [ ] Confirm live key is restored before merging to GitHub
+
+> ⚠️ **Stripe test mode and webhooks:** when testing with a Stripe test key, `paymentStatus` in DynamoDB will remain `pending` after payment. This is expected — the webhook is configured on the live Stripe account and will not fire during test mode. It does not indicate a problem with the booking or payment flow.
 
 ## 🔒 Security Notes
 

@@ -66,9 +66,13 @@ exports.handler = async (event) => {
     let isPreBooking = paymentType === 'deposit';
     
     // Set base product name based on class level
-    if (classLevel === 'beginner' || classLevel === 'intermediate') {
+    if (classLevel === 'open-level') {
+      productName = 'Open Level Belly Dance Class';
+    } else if (classLevel === 'beginner' || classLevel === 'intermediate') {
+      // NOTE: 'beginner' and 'intermediate' class levels are retained for historical
+      // records and potential future re-use. They are no longer exposed in the UI.
       productName = 'Belly Dance Class';
-      
+
       if (classLevel === 'beginner') {
         productName = 'Beginner ' + productName;
       } else if (classLevel === 'intermediate') {

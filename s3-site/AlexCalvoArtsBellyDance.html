@@ -70,10 +70,14 @@
     
     .classes-container {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       width: 100%;
       gap: 30px;
       margin-bottom: 40px;
+    }
+
+    .classes-container .class-section {
+      max-width: 700px;
     }
     
     .class-section {
@@ -406,59 +410,32 @@
     
     <div class="main-content">
       <div class="classes-container">
-        <!-- Beginner Class Section -->
+        <!-- Open Level Class Section -->
         <div class="class-section">
-          <img src="images/belly-dance-pic-05.jpg" alt="Beginner Belly Dance Class" class="class-image">
-          <h2>Beginner Bellydance Classes</h2>
-          <h3>Thursdays, 7:00 – 8:00 PM</h3>
+          <img src="images/belly-dance-pic-05.jpg" alt="Open Level Belly Dance Class" class="class-image">
+          <h2>Open Level Bellydance Classes</h2>
+          <h3>Thursdays, 7:30 – 8:30 PM</h3>
           <div class="class-details">
             <div class="class-detail-item">Ringsend Community Centre, Dublin</div>
             <div class="class-detail-item">8-week term – €110</div>
           </div>
-          <p>Secure your spot in advance with a €50 deposit.<br>
-          The deposit will be deducted from the total fee.<br>
-          If for any reason the course doesn't go ahead, you'll receive a full refund.</p>
-          <p class="class-note">No experience needed – all bodies and ages welcome!</p>
+          <p>Step into the rhythm, reconnect with your body, and explore the expressive power of bellydance in a welcoming and creative space.</p>
+          <br>
+          <p>This open level class is designed for dancers of all levels — whether you're just starting out or looking to deepen your technique, musicality, and confidence. You'll be guided and supported at your own pace.</p>
+          <br>
+          <p class="class-note" style="margin-bottom: 25px;">Secure your spot in advance with a €50 deposit.<br>
+          The deposit will be deducted from the total fee.</p>
           <div class="buttons-container">
-            <button class="checkout-button full-term-button" data-class-level="beginner" data-payment-type="full">
+            <button class="checkout-button full-term-button" data-class-level="open-level" data-payment-type="full">
               <div class="button-content">Book full 8-week term (€110)</div>
             </button>
-            <button class="checkout-button deposit-button" data-class-level="beginner" data-payment-type="deposit">
+            <button class="checkout-button deposit-button" data-class-level="open-level" data-payment-type="deposit">
               <div class="button-content">Book spot with deposit (€50)</div>
             </button>
-            
+
             <p class="completion-separator">If you have already booked your spot with a deposit and wish to complete the full-term booking:</p>
-            
-            <button class="checkout-button completion-button" data-class-level="beginner" data-payment-type="completion">
-              <div class="button-content">Complete Term Booking (€60)</div>
-            </button>
-          </div>
-        </div>
-        
-        <!-- Intermediate Class Section -->
-        <div class="class-section">
-          <img src="images/belly-dance-pic-03.jpg" alt="Intermediate Belly Dance Class" class="class-image">
-          <h2>Intermediate Bellydance Classes</h2>
-          <h3>Thursdays, 8:00 – 9:00 PM</h3>
-          <div class="class-details">
-            <div class="class-detail-item">Ringsend Community Centre, Dublin</div>
-            <div class="class-detail-item">8-week term – €110</div>
-          </div>
-          <p>Secure your spot in advance with a €50 deposit.<br>
-          The deposit will be deducted from the total fee.<br>
-          If for any reason the course doesn't go ahead, you'll receive a full refund.</p>
-          <p class="class-note">Some previous bellydance experience is recommended.</p>
-          <div class="buttons-container">
-            <button class="checkout-button full-term-button" data-class-level="intermediate" data-payment-type="full">
-              <div class="button-content">Book full 8-week term (€110)</div>
-            </button>
-            <button class="checkout-button deposit-button" data-class-level="intermediate" data-payment-type="deposit">
-              <div class="button-content">Book spot with deposit (€50)</div>
-            </button>
-            
-            <p class="completion-separator">If you have already booked your spot with a deposit and wish to complete the full-term booking:</p>
-            
-            <button class="checkout-button completion-button" data-class-level="intermediate" data-payment-type="completion">
+
+            <button class="checkout-button completion-button" data-class-level="open-level" data-payment-type="completion">
               <div class="button-content">Complete Term Booking (€60)</div>
             </button>
           </div>
