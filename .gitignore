@@ -7,6 +7,9 @@ lambda-notify-booking/node_modules/
 # Ignore Lambda deployment packages (build artifacts, not source)
 *.zip
 
+# Claude Code local configuration (machine/user-specific)
+.claude/
+
 # Optional: Mac system file
 .DS_Store
 
