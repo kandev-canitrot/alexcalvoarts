@@ -5,10 +5,7 @@ lambda-webhook/node_modules/
 lambda-notify-booking/node_modules/
 
 # Ignore Lambda deployment packages (build artifacts, not source)
-store-booking-lambda.zip
-stripe-lambda.zip
-webhook-lambda.zip
-notify-booking-lambda.zip
+*.zip
 
 # Optional: Mac system file
 .DS_Store
