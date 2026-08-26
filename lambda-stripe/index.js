@@ -75,7 +75,7 @@ exports.handler = async (event) => {
     if (booking.classLevel === 'theater') {
       // Theater in Spanish class pricing
       if (booking.paymentType === 'full') {
-        amount = 6000; // €60.00 in cents (final 3-session block)
+        amount = 12000; // €120.00 in cents (8-session term)
       } else if (booking.paymentType === 'deposit') {
         amount = 2000; // €20.00 in cents (deposit)
       } else if (booking.paymentType === 'completion') {
