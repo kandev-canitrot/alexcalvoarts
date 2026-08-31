@@ -407,6 +407,16 @@ git commit -m "<message>"
 git push origin main
 ```
 
+#### GitHub Authentication (Personal Access Token)
+
+- `git push` uses HTTPS with a GitHub Personal Access Token (PAT), cached locally by Git Credential Manager (`credential.helper = manager`). Once a token is entered successfully, subsequent pushes work silently with no further prompts — until the token expires or is revoked.
+- **The current PAT is stored in the NordPass account** — retrieve it from there when a new one is needed. Do not store the token in this repo or in any file.
+- If `git push` fails with `Invalid username or token. Password authentication is not supported for Git operations.`, the cached PAT has expired or been revoked. Fix:
+  1. Generate a new token on GitHub: Settings → Developer settings → Personal access tokens (classic or fine-grained) → grant repo/contents read-write access → set an expiration.
+  2. Save the new token in NordPass, replacing the old one.
+  3. Run `git push origin main` again; when prompted, enter your GitHub username and the new token as the password. Git Credential Manager will cache it for future pushes.
+- ⚠️ Never paste a PAT directly into a chat/AI session — treat any token that was pasted as compromised and revoke/regenerate it immediately, since chat transcripts can persist beyond the session.
+
 ### Pre-deployment Checklist
 
 Before updating production:
